@@ -1,4 +1,4 @@
-package main.java;
+package main.java.July;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,4 @@
-package main.java;
-
-import org.junit.jupiter.api.Assertions.*;
+package main.java.July;
 
 import static org.junit.jupiter.api.Assertions.*;
 

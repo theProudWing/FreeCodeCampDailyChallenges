@@ -4,7 +4,7 @@
  * Time:14:29
  */
 
-package main.java;
+package main.java.July;
 
 public class GoldenRatio {
     /***
