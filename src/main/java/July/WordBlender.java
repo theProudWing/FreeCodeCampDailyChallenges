@@ -9,7 +9,7 @@ package main.java.July;
 public class WordBlender {
 
     /***
-     * Given two words, return a new word by combining the first half of the first word
+     * Given two words, return a new word combining the first half of the first word
      * with the second half of the second word.
      * <p>
      * For odd-length words, the first half is the shorter half.
@@ -20,11 +20,14 @@ public class WordBlender {
      */
     public static String blendWords(String first, String second){
         // For each word:
-        //      Find the length
-        //      Identify the middle
-        //      Split down the middle (if odd-length, the first half is one character shorter) using .substring
-        //      Combine the two halves and return
+        //          Find the length
+        //          Identify the middle
+        //          Split down the middle (if odd-length, the first half is one character shorter) using .substring
+        //          Combine the two halves and return
 
-        return first.substring(0, first.length() / 2) + second.substring(second.length() / 2);
+        String firstHalf = first.substring(0, first.length() / 2);
+        String secondHalf = second.substring(second.length() / 2);
+
+        return firstHalf + secondHalf;
     }
 }
