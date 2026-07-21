@@ -14,6 +14,5 @@ class WordBlenderTest {
         assertEquals("hyana", WordBlender.blendWords("hyena", "iguana"));
         assertEquals("scorilla", WordBlender.blendWords("scorpion", "gorilla"));
         assertEquals("platerine", WordBlender.blendWords("platypus", "wolverine"));
-
     }
 }
