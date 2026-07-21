@@ -19,6 +19,6 @@ public class WordBlender {
      * @return a new word combining the two halves derived from the input words.
      */
     public String blendWords(String first, String second){
-
+        return "";
     }
 }
