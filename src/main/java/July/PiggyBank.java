@@ -17,18 +17,11 @@ public class PiggyBank {
         // return
         double total = 0;
 
-        for (int i = 0; i < pennies; i++) {
-            total += 0.01;
-        }
-        for (int i = 0; i < nickles; i++) {
-            total += 0.05;
-        }
-        for (int i = 0; i < dimes; i++) {
-            total += 0.10;
-        }
-        for (int i = 0; i < quarters; i++) {
-            total += 0.25;
-        }
+        total += pennies * 0.01;
+        total += nickles * 0.05;
+        total += dimes * 0.10;
+        total += quarters * 0.25;
+
 
         DecimalFormat df = new DecimalFormat("$#,##0.00");
 
