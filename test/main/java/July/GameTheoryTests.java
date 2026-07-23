@@ -4,18 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameTheoryTest {
+class GameTheoryTests {
 
     @Test
-    void prisonersDilemmaResult() {
-
+    void failsWithIllegalArguments(){
         assertThrows(IllegalArgumentException.class,
                 () -> GameTheory.prisonersDilemmaResult("C", "CDCD"));
         assertThrows(IllegalArgumentException.class,
                 () -> GameTheory.prisonersDilemmaResult("CCCDDD", ""));
         assertThrows(IllegalArgumentException.class,
                 () -> GameTheory.prisonersDilemmaResult("Defect", "Cooperate"));
-
+    }
+    @Test
+    void accurateScores() {
         assertArrayEquals(new int[]{12, 12},
                 GameTheory.prisonersDilemmaResult("CCCC", "CCCC")
         );
