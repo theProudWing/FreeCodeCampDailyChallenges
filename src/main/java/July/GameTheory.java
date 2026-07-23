@@ -12,13 +12,14 @@ public class GameTheory {
      * Given two equal length strings representing the strategies of two players in <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma">the prisoner's dilemma</a>
      * return an array containing the scores of both players.
      * <p>
-     * The string parameters must only contain one of two letters: "C" (cooperate) or "D" (defect).
+     * The string parameters must be comprised of one of two characters: "C" (cooperate) or "D" (defect).
      * <p>
      * Each character represents one round, scored as follows:
-     *     If both players cooperate, each scores 3.
-     *     If both players defect, each scores 1.
-     *     If one player defects and the other cooperates, the defector scores 5 and the cooperator scores 0.
-     *
+     * <ul>
+     *     <li>If both players cooperate, each scores 3.</li>
+     *     <li>If both players defect, each scores 1.</li>
+     *     <li>If one player defects and the other cooperates, the defector scores 5 and the cooperator scores 0.</li>
+     * </ul>
      *
      * @param playerOneStrategy a String representing the strategy of the first player.
      * @param playerTwoStrategy a String representing the strategy of the second player.
@@ -29,6 +30,12 @@ public class GameTheory {
         if (playerOneStrategy.length() != playerTwoStrategy.length()){
             throw new IllegalArgumentException("Player strategies are of different lengths.");
         }
+
+        final int BOTH_COOPERATE = 3;
+        final int BOTH_DEFECT = 1;
+        final int TRAITOR = 5;
+        final int BETRAYED = 0;
+
         int p1Score = 0;
         int p2Score = 0;
 
@@ -45,18 +52,20 @@ public class GameTheory {
             switch (p1Strat){
                 case 'D':
                     if (p2Strat == 'D'){ // both players defect
-                        p1Score += 1;
-                        p2Score += 1;
+                        p1Score += BOTH_DEFECT;
+                        p2Score += BOTH_DEFECT;
                     } else {
-                        p1Score += 5; // p1 betrays p2
+                        p1Score += TRAITOR; // p1 betrays p2
+                        p2Score += BETRAYED;
                     }
                     break;
                 case 'C':
                     if (p2Strat == 'C'){ // both players co-operate
-                        p1Score += 3;
-                        p2Score += 3;
-                    } else {
-                        p2Score += 5; // p2 betrays p1
+                        p1Score += BOTH_COOPERATE;
+                        p2Score += BOTH_COOPERATE;
+                    } else { // p2 betrays p1
+                        p2Score += TRAITOR;
+                        p1Score += BETRAYED;
                     }
                     break;
             }
