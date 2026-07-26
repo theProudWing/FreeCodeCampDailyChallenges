@@ -8,9 +8,12 @@ class CellSignalTest {
 
     @Test
     void correctPhoneLocations() {
+
+        CellSignal signal = new CellSignal();
+
         assertArrayEquals(
                 new int[]{1, 2},
-                CellSignal.findPhone(new int[][]{
+                signal.findPhone(new int[][]{
                         {0, 0, 1},
                         {0, 1, 0},
                         {0, 0, 1}
@@ -18,7 +21,7 @@ class CellSignalTest {
         );
         assertArrayEquals(
                 new int[]{2, 1},
-                CellSignal.findPhone(new int[][]{
+                signal.findPhone(new int[][]{
                         {0, 2, 0},
                         {1, 0, 0},
                         {0, 0, 1}
@@ -26,7 +29,7 @@ class CellSignalTest {
         );
         assertArrayEquals(
                 new int[]{2, 2},
-                CellSignal.findPhone(new int[][]{
+                signal.findPhone(new int[][]{
                         {0, 0, 2, 0},
                         {0, 0, 0, 0},
                         {2, 0, 0, 0},
@@ -34,8 +37,18 @@ class CellSignalTest {
                 })
         );
         assertArrayEquals(
+                new int[]{3, 4},
+                signal.findPhone(new int[][]{
+                        {0, 3, 0, 0, 0},
+                        {0, 0, 0, 0, 2},
+                        {0, 0, 0, 0, 0},
+                        {4, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0}
+                })
+        );
+        assertArrayEquals(
                 new int[]{3, 3},
-                CellSignal.findPhone(new int[][]{
+                signal.findPhone(new int[][]{
                         {3, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0},

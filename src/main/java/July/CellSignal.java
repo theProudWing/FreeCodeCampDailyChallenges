@@ -6,7 +6,13 @@
 
 package main.java.July;
 
+
+import java.util.*;
+import java.util.List;
+
 public class CellSignal {
+
+    record Coordinate(int x, int y) {}
 
     /**
      * Given a grid containing 3 cell tower readings, determine the location of the detected phone
@@ -19,7 +25,70 @@ public class CellSignal {
      *                  values, representing the distance to the phone from that tower.
      * @return the [row, column] of the phone.
      */
-    public static int[] findPhone(int[][] towerGrid){
-        return new int[0];
+
+    public int[] findPhone(int[][] towerGrid){
+        // find and store value and coordinates for the tower readings (exactly 3)
+        // nested for loops for row > column
+        // int totalRows = towerGrid.length;
+        // int totalColumns = towerGrid[0].length;
+
+        ArrayList<CellTower> towers = new ArrayList<>();
+
+        for (int rowNum = 0; rowNum < towerGrid.length; rowNum++) {
+            // For each row, find if there is a non-0 value, if so store it.
+            for (int colNum = 0; colNum < towerGrid[0].length; colNum++) {
+                int value = towerGrid[rowNum][colNum];
+                if (value > 0){
+                    towers.add(new CellTower(rowNum, colNum, value));
+                    if (towers.size() == 3){
+                        break;
+                    }
+                }
+            }
+        }
+        // use the reading to find [row, column] value that intersects the distance from each tower
+        // This could be achieved by finding the intersection of the Sets of possible coordinates determined from each tower.
+
+
+        Set<Coordinate> set1 = new HashSet<>(towers.get(0).getPotentialLocations());
+
+        Set<Coordinate> set2 = new HashSet<>(towers.get(1).getPotentialLocations());
+
+        Set<Coordinate> set3 = new HashSet<>(towers.get(2).getPotentialLocations());
+
+        Set<Coordinate> intersection = new HashSet<>(set1);
+        intersection.retainAll(set2);
+        intersection.retainAll(set3);
+
+        Coordinate phoneLocation = intersection.iterator().next();
+
+        // Remember to add 1 to x + y coord before returning.
+        return new int[]{phoneLocation.x(), phoneLocation.y()};
+    }
+    private static class CellTower {
+
+        final int[] location;
+        final int distanceToPhone;
+
+        CellTower(int row, int column, int distanceToPhone){
+            location = new int[] {row, column};
+            this.distanceToPhone = distanceToPhone;
+        }
+
+        ArrayList<Coordinate> getPotentialLocations(){
+            int x = location[0];
+            int y = location[1];
+            Coordinate north = new Coordinate(x, y + distanceToPhone);
+            Coordinate northEast = new Coordinate(x + distanceToPhone, y + distanceToPhone);
+            Coordinate east = new Coordinate(x + distanceToPhone, y);
+            Coordinate southEast = new Coordinate(x + distanceToPhone, y - distanceToPhone);
+            Coordinate south = new Coordinate(x, y - distanceToPhone);
+            Coordinate southWest = new Coordinate(x - distanceToPhone, y - distanceToPhone);
+            Coordinate west = new Coordinate(x - distanceToPhone, y);
+            Coordinate northWest = new Coordinate(x - distanceToPhone, y + distanceToPhone);
+
+            return new ArrayList<>(List.of(north, northEast, east, southEast, south, southWest, west, northWest));
+        }
+
     }
 }
