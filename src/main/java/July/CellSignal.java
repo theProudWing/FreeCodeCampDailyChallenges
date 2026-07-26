@@ -35,34 +35,30 @@ public class CellSignal {
         ArrayList<CellTower> towers = new ArrayList<>();
 
         for (int rowNum = 0; rowNum < towerGrid.length; rowNum++) {
-            // For each row, find if there is a non-0 value, if so store it.
+            // For each row, find if there is a non-0 value, if so store it - this is a tower
             for (int colNum = 0; colNum < towerGrid[0].length; colNum++) {
                 int value = towerGrid[rowNum][colNum];
                 if (value > 0){
                     towers.add(new CellTower(rowNum, colNum, value));
-                    if (towers.size() == 3){
+                    if (towers.size() == 3){ // we know there are exactly 3 towers
                         break;
                     }
                 }
             }
         }
-        // use the reading to find [row, column] value that intersects the distance from each tower
+        // use the distance to find [row, column] value that intersects the distance from each tower
         // This could be achieved by finding the intersection of the Sets of possible coordinates determined from each tower.
 
-
         Set<Coordinate> set1 = new HashSet<>(towers.get(0).getPotentialLocations());
-
         Set<Coordinate> set2 = new HashSet<>(towers.get(1).getPotentialLocations());
-
         Set<Coordinate> set3 = new HashSet<>(towers.get(2).getPotentialLocations());
 
         Set<Coordinate> intersection = new HashSet<>(set1);
         intersection.retainAll(set2);
         intersection.retainAll(set3);
 
-        Coordinate phoneLocation = intersection.iterator().next();
+        Coordinate phoneLocation = intersection.iterator().next(); // there should be exactly one correct location
 
-        // Remember to add 1 to x + y coord before returning.
         return new int[]{phoneLocation.x(), phoneLocation.y()};
     }
     private static class CellTower {
