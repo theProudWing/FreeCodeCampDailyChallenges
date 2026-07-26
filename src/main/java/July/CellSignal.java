@@ -29,8 +29,6 @@ public class CellSignal {
     public int[] findPhone(int[][] towerGrid){
         // find and store value and coordinates for the tower readings (exactly 3)
         // nested for loops for row > column
-        // int totalRows = towerGrid.length;
-        // int totalColumns = towerGrid[0].length;
 
         ArrayList<CellTower> towers = new ArrayList<>();
 
