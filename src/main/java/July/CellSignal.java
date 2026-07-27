@@ -12,6 +12,7 @@ import java.util.List;
 
 public class CellSignal {
 
+    final int EXPECTED_TOWERS = 3;
     record Coordinate(int x, int y) {}
 
     /**
@@ -28,36 +29,37 @@ public class CellSignal {
 
     public int[] findPhone(int[][] towerGrid){
         // find and store value and coordinates for the tower readings (exactly 3)
-        // nested for loops for row > column
+        // nested for loops for row and column
 
         ArrayList<CellTower> towers = new ArrayList<>();
 
         for (int rowNum = 0; rowNum < towerGrid.length; rowNum++) {
             // For each row, find if there is a non-0 value, if so store it - this is a tower
             for (int colNum = 0; colNum < towerGrid[0].length; colNum++) {
-                int value = towerGrid[rowNum][colNum];
+                int value = towerGrid[rowNum][colNum]; // the found value is the distance from the tower to the phone
                 if (value > 0){
                     towers.add(new CellTower(rowNum, colNum, value));
-                    if (towers.size() == 3){ // we know there are exactly 3 towers
-                        break;
-                    }
                 }
             }
         }
-        // use the distance to find [row, column] value that intersects the distance from each tower
-        // This could be achieved by finding the intersection of the Sets of possible coordinates determined from each tower.
+        if (towers.size() == EXPECTED_TOWERS) {
+            // Find the [row, column] that intersects the distance from each tower
+            // This can be achieved by finding the intersection of coordinates the known distance from each tower.
 
-        Set<Coordinate> set1 = new HashSet<>(towers.get(0).getPotentialLocations());
-        Set<Coordinate> set2 = new HashSet<>(towers.get(1).getPotentialLocations());
-        Set<Coordinate> set3 = new HashSet<>(towers.get(2).getPotentialLocations());
+            Set<Coordinate> set1 = new HashSet<>(towers.get(0).getPotentialLocations());
+            Set<Coordinate> set2 = new HashSet<>(towers.get(1).getPotentialLocations());
+            Set<Coordinate> set3 = new HashSet<>(towers.get(2).getPotentialLocations());
 
-        Set<Coordinate> intersection = new HashSet<>(set1);
-        intersection.retainAll(set2);
-        intersection.retainAll(set3);
+            Set<Coordinate> intersection = new HashSet<>(set1);
+            intersection.retainAll(set2);
+            intersection.retainAll(set3);
 
-        Coordinate phoneLocation = intersection.iterator().next(); // there should be exactly one correct location
-
-        return new int[]{phoneLocation.x(), phoneLocation.y()};
+            if (intersection.iterator().hasNext()) {
+                Coordinate phoneLocation = intersection.iterator().next(); // there should be exactly one correct location
+                return new int[]{phoneLocation.x(), phoneLocation.y()};
+            }
+        }
+        return null; // Should only be reached if there are more than the expected number of towers or no solution is identified.
     }
     private static class CellTower {
 
