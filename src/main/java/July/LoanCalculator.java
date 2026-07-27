@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class LoanCalculator {
 
     /**
+     * FreeCodeCamp Daily Challenge - 24-07-2026
      * <p>Given a loan amount, annual interest rate %, and fixed monthly payment, returns an array of the amount outstanding
      * after each payment.</p>
      * <ul>

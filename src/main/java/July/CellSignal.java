@@ -16,6 +16,8 @@ public class CellSignal {
     record Coordinate(int x, int y) {}
 
     /**
+     * FreeCodeCamp Daily Challenge - 25-07-2026
+     * <p>
      * Given a grid containing 3 cell tower readings, determine the location of the detected phone
      * <ul>
      *     <li>Each cell in the grid is either 0 (no tower) or a positive integer representing the distance in cells to the phone

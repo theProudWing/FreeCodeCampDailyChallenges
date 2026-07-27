@@ -8,7 +8,9 @@ package main.java.July;
 
 public class WordBlender {
 
-    /***
+    /**
+     * FreeCodeCamp Daily Challenge - 21-07-2026
+     * <p>
      * Given two words, return a new word combining the first half of the first word
      * with the second half of the second word.
      * <p>
