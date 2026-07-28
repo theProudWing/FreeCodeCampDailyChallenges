@@ -52,22 +52,17 @@ public class ContrastRating {
         }
 
         double ratio = Double.parseDouble(contrastRatio);
-        String rating = "Fail";
 
-        if (isLargeText){
-            if (ratio >= 4.5){
-                rating = "AAA";
-            } else if (ratio >= 3.0) {
-                rating = "AA";
-            }
-        } else {
-            if (ratio >= 7.0){
-                rating = "AAA";
-            } else if (ratio >= 4.5){
-                rating = "AA";
-            }
+        double aaaRating = isLargeText ? 4.5 : 7.0;
+        double aaRating = isLargeText ? 3.0 : 4.5;
+
+        if (ratio >= aaaRating){
+            return "AAA";
+        } else if (ratio >= aaRating) {
+            return "AA";
         }
-        return rating;
+        return "Fail";
+
     }
 
     private static boolean isDouble(String string){
