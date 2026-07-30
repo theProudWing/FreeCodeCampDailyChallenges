@@ -27,6 +27,17 @@ class ContrastRatingTest {
         assertEquals("AA", ContrastRating.getContrastRating(0.7489, 0.2018, true));
         assertEquals("Fail", ContrastRating.getContrastRating(0.6571, 0.1974, true));
     }
+
+    @Test
+    void accuratelyDeterminesRatingWithIntegerArrayParams(){
+        assertEquals("AAA", ContrastRating.getContrastRating(new int[]{255, 255, 255}, new int[] {0, 0, 0}, false));
+        assertEquals("AA", ContrastRating.getContrastRating(new int[]{215, 188, 188}, new int[] {55, 55, 55}, false));
+        assertEquals("Fail", ContrastRating.getContrastRating(new int[]{143, 144, 210}, new int[] {46, 47, 61}, false));
+        assertEquals("AAA", ContrastRating.getContrastRating(new int[]{167, 167, 210}, new int[] {53, 10, 53}, true));
+        assertEquals("AA", ContrastRating.getContrastRating(new int[]{135, 147, 155}, new int[] {60, 70, 90}, true));
+        assertEquals("Fail", ContrastRating.getContrastRating(new int[]{125, 210, 195}, new int[] {105, 130, 90}, true));
+    }
+
     @Test
     @DisplayName("Throws Exception with Illegal Arguments")
     void throwsIllegalArgumentExceptionWithBadParams(){

@@ -70,7 +70,7 @@ public class ContrastRating {
      * FreeCodeCamp Daily Challenge - 29-07-2026
      * <p>
      * Given two relative luminance values and a boolean indicating whether the text is large,
-     * return the WCAG contrast rating based on the contrast ratio using the following table:
+     * returns the WCAG contrast rating based on the contrast ratio using the following table:
      * <table border="1" cellpadding="2">
      *     <tr>
      *         <th>Rating</th>
@@ -124,6 +124,85 @@ public class ContrastRating {
             return "AA";
         }
         return "Fail";
+    }
+
+    /**
+     * FreeCodeCamp Daily Challenge - 30-07-2026
+     * <p>
+     * Given two integer arrays representing the RGB values of colours and a boolean indicating whether the text is large,
+     * returns the WCAG contrast rating using the following table:
+     * <table border="1" cellpadding="2">
+     *     <tr>
+     *         <th>Rating</th>
+     *         <th>Normal Text</th>
+     *         <th>Large Text</th></th>
+     *     </tr>
+     *     <tr>
+     *         <td>AAA</td>
+     *         <td>7.0+</td>
+     *         <td>4.5+</td>
+     *     </tr>
+     *     <tr>
+     *      <td>AA</td>
+     *      <td>4.5+</td>
+     *      <td>3.0+</td>
+     *     </tr>
+     *     <tr>
+     *         <td>Fail</td>
+     *         <td>below 4.5</td>
+     *         <td>below 3.0</td>
+     *     </tr>
+     * </table>
+     *
+     * @param lighterRGB an integer array containing 3 8-bit integers (0-255) representing Red, Green, and Blue values
+     *                   for the lighter of the two colours.
+     * @param darkerRGB an integer array containing 3 8-bit integers (0-255) representing Red, Green, and Blue values
+     *                   for the darker of the two colours.
+     * @param isLargeText whether the text to display is of a large font size
+     * @return the WCAG rating given the provided parameters
+     */
+    public static String getContrastRating(int[] lighterRGB, int[] darkerRGB, boolean isLargeText ){
+        //check that the provided arrays are of the rite size
+        //create a function to calculate luminance from a set of rgb values
+        double lighter = getRelativeLuminance(lighterRGB);
+        double darker = getRelativeLuminance(darkerRGB);
+
+        return getContrastRating(lighter, darker, isLargeText);
+    }
+
+    public static double getRelativeLuminance(final int r, final int g, final int b){
+        int red = Math.clamp(r, 0, 255); // handles values out of 8-bit range by clamping them
+        int green = Math.clamp(g, 0, 255);
+        int blue = Math.clamp(b, 0, 255);
+
+        //normalise to values between 0-1
+        double redN = (double) red / 255;
+        double greenN = (double) green / 255;
+        double blueN = (double) blue / 255;
+
+        // apply gamma correction to each channel
+        redN = getGammaCorrectedValue(redN);
+        greenN = getGammaCorrectedValue(greenN);
+        blueN = getGammaCorrectedValue(blueN);
+
+        // calculate luminance and return
+        return 0.2126 * redN + 0.7152 * greenN + 0.0722 * blueN;
+    }
+
+    private static double getRelativeLuminance(int[] rgbValues) throws IllegalArgumentException{
+        if (rgbValues.length != 3){
+            throw new IllegalArgumentException("Provided array does not contain 3 values");
+        }
+        // passes the values for red, green, and blue to the overloaded method.
+        return getRelativeLuminance(rgbValues[0], rgbValues[1], rgbValues[2]);
+    }
+
+    private static double getGammaCorrectedValue(double colourChannel){
+        if (colourChannel <= 0.04045){
+            return colourChannel / 12.92;
+        } else {
+            return Math.pow(((colourChannel + 0.055) / 1.055), 2.4);
+        }
     }
 
     private static boolean isDouble(String string){
