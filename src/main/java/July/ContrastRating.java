@@ -170,7 +170,16 @@ public class ContrastRating {
         return getContrastRating(lighter, darker, isLargeText);
     }
 
-    public static double getRelativeLuminance(final int r, final int g, final int b){
+    /**
+     * Calculates the relative luminance of an 8-bit RGB colour using
+     * <a href="https://www.w3.org/WAI/GL/wiki/Relative_luminance">the corrected formula for WCAG 2.x</a>
+     *
+     * @param r 8-bit integer representing the <b>RED</b> colour channel
+     * @param g 8-bit integer representing the <b>GREEN</b> colour channel
+     * @param b 8-bit integer representing the <b>BLUE</b> colour channel
+     * @return the relative luminance of the colour
+     */
+    private static double getRelativeLuminance(final int r, final int g, final int b){
         int red = Math.clamp(r, 0, 255); // handles values out of 8-bit range by clamping them
         int green = Math.clamp(g, 0, 255);
         int blue = Math.clamp(b, 0, 255);
@@ -189,6 +198,14 @@ public class ContrastRating {
         return 0.2126 * redN + 0.7152 * greenN + 0.0722 * blueN;
     }
 
+    /**
+     * Calculates the relative luminance of an 8-bit RGB colour using
+     * <a href="https://www.w3.org/WAI/GL/wiki/Relative_luminance">the corrected formula for WCAG 2.x</a>
+     *
+     * @param rgbValues 3-item integer array with values representing the red, green, and blue colour channels
+     * @return the relative luminance of the argument colour
+     * @throws IllegalArgumentException if the provided array does not have exactly 3 stored values
+     */
     private static double getRelativeLuminance(int[] rgbValues) throws IllegalArgumentException{
         if (rgbValues.length != 3){
             throw new IllegalArgumentException("Provided array does not contain 3 values");
