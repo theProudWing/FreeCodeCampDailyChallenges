@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ContrastRatingTest {
+class ContrastRatingTests {
 
     @Test
     @DisplayName("Accurate with String Param")
@@ -29,6 +29,7 @@ class ContrastRatingTest {
     }
 
     @Test
+    @DisplayName("Accurate with RGB Array Params")
     void accuratelyDeterminesRatingWithIntegerArrayParams(){
         assertEquals("AAA", ContrastRating.getContrastRating(new int[]{255, 255, 255}, new int[] {0, 0, 0}, false));
         assertEquals("AA", ContrastRating.getContrastRating(new int[]{215, 188, 188}, new int[] {55, 55, 55}, false));
