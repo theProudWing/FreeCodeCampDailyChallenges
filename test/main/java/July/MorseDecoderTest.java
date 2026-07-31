@@ -25,11 +25,16 @@ class MorseDecoderTest {
                 MorseDecoder.decodeMorse(".... . .-.. .-.. ---   .-- --- .-. .-.. -..")
         );
         assertEquals(
-                "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+                "THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG",
                 MorseDecoder.decodeMorse("- .... .   --.- ..- .. -.-. -.-   -... .-. --- .-- -." +
                         "   ..-. --- -..-   .--- ..- -- .--. . -..   --- ...- . .-.   - .... .   .-.. .- --.." +
                         " -.--   -.. --- --.")
         );
+        assertEquals(
+                "FOR A GOOD TIME CALL JENNY ON 8675309",
+                MorseDecoder.decodeMorse("..-. --- .-.   .-   --. --- --- -..   - .. -- .   -.-. .- .-.. .-.." +
+                        "   .--- . -. -. -.--   --- -.   ---.. -.... --... ..... ...-- ----- ----.")
+                );
     }
 
     @Test
