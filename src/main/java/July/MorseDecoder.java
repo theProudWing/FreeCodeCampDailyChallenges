@@ -6,25 +6,49 @@
 
 package main.java.July;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 public class MorseDecoder {
+    /**
+     * FreeCodeCamp Daily Challenge - 31-07-2026
+     * <p>
+     * Given a Morse code string, returns the decoded message.
+     * <ul>
+     *     <li>Letters are separated by a single space</li>
+     *     <li>Words are separated by three spaces</li>
+     * </ul>
+     *
+     * @param morseCode a message in Morse Code.
+     *                  Words are separated with 3 spaces.
+     *                  Characters within words are separated with 1 space.
+     * @return the decoded message
+     */
     public static String decodeMorse(String morseCode){
-        // Will need to separate the message with three spaces "   " as the String delimiter
+        // Will need to separate the message into individual words, with three spaces "   " as the delimiter
+        // Further split each word into characters, with one space " " as the delimiter
         // Pass each separate character to the decodeMorseCharacter method
         // Add each decoded char to a new string which will be the return value
+        // Add a space to the end of each word UNLESS it is the final word in the message
         StringBuilder decoded = new StringBuilder();
-        String[] splitMessage = morseCode.split(" {3}");
 
-        for (String morseWord : splitMessage){
-            String[] splitWord = morseWord.split(" ");
+        String[] splitMessage = morseCode.split(" {3}"); // separates message into individual words
+        Iterator<String> wordIterator = Arrays.stream(splitMessage).iterator();
+
+        // iterate over each word
+        while (wordIterator.hasNext()){
+            String[] splitWord = wordIterator.next().split(" ");
+
+            // decode each character and add to decoded string
             for (String morseCharacter : splitWord) {
                 Character next = decodeMorseCharacter(morseCharacter);
                 decoded.append(next);
             }
-            decoded.append(" ");
+            if (wordIterator.hasNext()){
+                decoded.append(" "); // add spaces between words
+            }
         }
-
-
-        return decoded.toString().trim();
+        return decoded.toString();
     }
 
     /**
