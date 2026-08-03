@@ -8,11 +8,14 @@ class EmojiTranslatorTest {
 
     @Test
     void getEmojiTranslation() {
-        assertEquals("rock star", EmojiTranslator.getEmojiTranslation("🪨⭐"));
-        assertEquals("hot dog", EmojiTranslator.getEmojiTranslation("🥵🐕"));
-        assertEquals("baby shark", EmojiTranslator.getEmojiTranslation("👶🦈"));
-        assertEquals("star fish", EmojiTranslator.getEmojiTranslation("⭐🐟"));
-        assertEquals("ice ice baby", EmojiTranslator.getEmojiTranslation("🧊🧊👶"));
-        assertEquals("cat fish soup", EmojiTranslator.getEmojiTranslation("🐈🐟🍲"));
+
+        EmojiTranslator translator = new EmojiTranslator();
+
+        assertEquals("rock star", translator.getEmojiTranslation("🪨⭐"));
+        assertEquals("hot dog", translator.getEmojiTranslation("🥵🐕"));
+        assertEquals("baby shark", translator.getEmojiTranslation("👶🦈"));
+        assertEquals("star fish", translator.getEmojiTranslation("⭐🐟"));
+        assertEquals("ice ice baby", translator.getEmojiTranslation("🧊🧊👶"));
+        assertEquals("cat fish soup", translator.getEmojiTranslation("🐈🐟🍲"));
     }
 }
