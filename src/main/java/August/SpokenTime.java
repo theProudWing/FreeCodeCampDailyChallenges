@@ -16,12 +16,17 @@ public class SpokenTime {
      * @param minuteAngle the angle of the minute hand, where 360 is 0 Minutes.
      * @return the derived time as a String of spoken English
      */
-    public static String getSpokenTime(double hourAngle, double minuteAngle){
+    public static String getSpokenTime(double hourAngle, double minuteAngle) throws IllegalArgumentException{
         //  firstly, need to convert each angle to the nearest value
         //      minute should be easy, simply divide by 6 as 360 / 6 = 60
         //      hour is the same, simply divide by 30 as 360 / 30 = 12
         //      each number should be rounded down i.e., the floor
         //  after that, the rest of the programme should be quite straightforward
+
+        if (isInvalidAngle(hourAngle) || isInvalidAngle(minuteAngle)){
+            throw new IllegalArgumentException("Provided Angles are Invalid");
+        }
+
         int hour = (int)Math.floor(hourAngle / 30);
         int minutes = (int)Math.floor(minuteAngle / 6);
 
@@ -42,5 +47,9 @@ public class SpokenTime {
             case 30 -> "half";
             default -> Integer.toString(minutes);
         };
+    }
+
+    private static boolean isInvalidAngle(final double angle){
+        return angle < 0 || angle > 359;
     }
 }
